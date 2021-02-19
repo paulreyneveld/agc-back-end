@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
 const usersRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 
 // DO NOT SAVE YOUR PASSWORD TO GITHUB!!
 const password = process.env.DB_PASSWORD
@@ -16,6 +17,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
 app.use(express.json())
 
 app.use('/api/users', usersRouter)
+app.use('/api/login', loginRouter)
 
 app.get('/', (request, response) => {
   response.send(`<h1>Hello World!</h1> & ${password}`)
