@@ -2,23 +2,18 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
+const usersRouter = require('./controllers/users')
 
 // DO NOT SAVE YOUR PASSWORD TO GITHUB!!
 const password = process.env.DB_PASSWORD
 const url =
-  `mongodb+srv://prwUser:${password}@cluster0.4uagh.mongodb.net/blogs?retryWrites=true&w=majority`
+  `mongodb+srv://dbUser:${password}@agc.nbvbb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
 
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+  .then(result => console.log('Conected to DB'))
+  .catch(error => console.log('Failed to connect', error.message))
 
-const blogSchema = new mongoose.Schema({
-  title: String,
-  content: String,
-  author: String,
-  date: Date
-})
-
-const Blog = mongoose.model('Blog', blogSchema)
-
+app.use('/api/users', usersRouter)
 
 app.get('/', (request, response) => {
   response.send(`<h1>Hello World!</h1> & ${password}`)
