@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const cors = require('cors')
 
 // DO NOT SAVE YOUR PASSWORD TO GITHUB!!
 const password = process.env.DB_PASSWORD
@@ -15,25 +16,13 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFind
   .catch(error => console.log('Failed to connect', error.message))
 
 app.use(express.json())
+app.use(cors())
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
 app.get('/', (request, response) => {
   response.send(`<h1>Hello World!</h1> & ${password}`)
-})
-
-app.post('/', async (request, response) => {
-    const body = request.body
-    console.log(request.body)
-    // const blog = new Blog({
-    //     title: body.title,
-    //     content: body.content,
-    //     author: body.author
-    // })
-
-    // await blog.save()
-    response.status(200).end()
 })
 
 const PORT = 3001
