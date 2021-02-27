@@ -4,6 +4,7 @@ const app = express()
 const mongoose = require('mongoose')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const photosRouter = require('./controllers/photos')
 const cors = require('cors')
 
 // DO NOT SAVE YOUR PASSWORD TO GITHUB!!
@@ -20,6 +21,7 @@ app.use(cors())
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/photos', photosRouter)
 
 app.get('/', (request, response) => {
   response.send(`<h1>Hello World!</h1> & ${password}`)
