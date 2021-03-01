@@ -16,15 +16,18 @@ const upload = multer({
 });
 
 photosRouter.post(
-  '/photos',
+  '/',
   upload.single('photo'),
   async (req, res) => {
+    console.log('got this far')
     try {
       const photo = new Photo(req.body);
       const file = req.file.buffer;
       photo.photo = file;
 
       await photo.save();
+      console.log('a little further')
+
       res.status(201).send({ _id: photo._id });
     } catch (error) {
       res.status(500).send({
@@ -41,7 +44,7 @@ photosRouter.post(
   }
 );
 
-photosRouter.get('/photos', async (req, res) => {
+photosRouter.get('/', async (req, res) => {
   try {
     const photos = await Photo.find({});
     res.send(photos);
@@ -50,7 +53,7 @@ photosRouter.get('/photos', async (req, res) => {
   }
 });
 
-photosRouter.get('/photos/:id', async (req, res) => {
+photosRouter.get('/:id', async (req, res) => {
   try {
     const result = await Photo.findById(req.params.id);
     res.set('Content-Type', 'image/jpeg');
