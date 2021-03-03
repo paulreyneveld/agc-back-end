@@ -19,14 +19,12 @@ photosRouter.post(
   '/',
   upload.single('photo'),
   async (req, res) => {
-    console.log('got this far')
     try {
       const photo = new Photo(req.body);
       const file = req.file.buffer;
       photo.photo = file;
 
       await photo.save();
-      console.log('a little further')
 
       res.status(201).send({ _id: photo._id });
     } catch (error) {
