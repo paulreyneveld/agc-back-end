@@ -16,4 +16,11 @@ blogRouter.post('/', async (req, res) => {
     res.json(blog).status(200).end()
 })
 
+blogRouter.get('/', async (req, res) => {
+
+    const blogs = await Blog.find({})
+
+    res.json(blogs).status(200).end()
+})
+
 module.exports = blogRouter
