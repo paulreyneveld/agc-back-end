@@ -3,7 +3,6 @@ const blogRouter = express.Router()
 const Blog = require('../models/Blog')
 
 blogRouter.post('/', async (req, res) => {
-    console.log(req)
     const body = req.body
 
     const blog = new Blog({
@@ -21,6 +20,14 @@ blogRouter.get('/', async (req, res) => {
     const blogs = await Blog.find({})
 
     res.json(blogs).status(200).end()
+})
+
+blogRouter.get('/:id', async (req, res) => {
+    console.log(req.params.id)
+    const blog = await Blog.findById(req.params.id)
+    console.log(blog)
+    // res.json('got it')
+    res.json(blog)
 })
 
 module.exports = blogRouter
