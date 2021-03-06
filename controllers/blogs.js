@@ -37,4 +37,14 @@ blogRouter.get('/:id', async (req, res) => {
     }
 })
 
+blogRouter.delete('/:id', async (req, res) => {
+    try {
+        await Blog.findByIdAndDelete(req.params.id)
+        res.status(204).end()
+    }
+    catch (error) {
+        res.status(500).send({ upload_error: 'Request error' })
+    }
+})
+
 module.exports = blogRouter
