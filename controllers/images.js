@@ -15,33 +15,46 @@ const upload = multer({
   }
 });
 
-imagesRouter.post(
-  '/',
-  upload.array('images', 10),
-  async (req, res) => {
-    console.log('endpoint hit')
-    try {
-      const image = new Image(req.body);
-      const file = req.file.buffer;
-      image.image = file;
+imagesRouter.post('/', (req, res) => {
+  console.log(req.files.images)
+})
 
-      await image.save();
-
-      res.status(201).send({ _id: image._id });
-    } catch (error) {
-      res.status(500).send({
-        upload_error: 'Error while uploading file...Try again later.'
-      });
-    }
-  },
-  (error, req, res, next) => {
-    if (error) {
-      res.status(500).send({
-        upload_error: error.message
-      });
-    }
-  }
-);
+// imagesRouter.post(
+//   '/',
+//   upload.array('images', 10),
+//   async (req, res) => {
+//     req.body.forEach(file => {
+//       console.log(file)
+//     })
+//     try {
+//       // console.log('endpoint hit')
+//       // console.log(req.body.isArray())
+      
+//       // const image = new Image(req.body);
+//       // console.log(image)
+//       // const file = req.file.buffer;
+//       // image.image = file;
+//       // console.log(image.image)
+//       // await image.save();
+//       const imagesArray = req.body
+//       imagesArray.forEach(image => {
+//         console.log(image)
+//       })
+//       res.status(201).send({ _id: image._id });
+//     } catch (error) {
+//       res.status(500).send({
+//         upload_error: 'Error while uploading file...Try again later.'
+//       });
+//     }
+//   },
+//   (error, req, res, next) => {
+//     if (error) {
+//       res.status(500).send({
+//         upload_error: error.message
+//       });
+//     }
+//   }
+// );
 
 imagesRouter.get('/', async (req, res) => {
   try {
