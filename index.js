@@ -28,7 +28,7 @@ app.use('/api/blog', blogRouter)
 app.use('/api/images', imagesRouter)
 
 app.get('/', (request, response) => {
-  response.send(`<h1>Hello World!</h1> & ${password}`)
+  response.send(`<h1>Hello World!</h1>`)
 })
 
 const PORT = 3001

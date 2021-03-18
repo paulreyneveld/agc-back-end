@@ -10,7 +10,13 @@ const upload = multer({
 });
 
 imagesRouter.post('/', upload.array('images', 10), async (req, res) => {
-  console.log(req.body)
+  console.log('post')
+  const imagesArray = new Array(req.body.images)
+  console.log(req.body.images)
+  // imagesArray.forEach(image => {
+  //   const test = new Image(image)
+  //   test.save()
+  // })
 })
 
 imagesRouter.get('/', async (req, res) => {
