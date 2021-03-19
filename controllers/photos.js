@@ -21,13 +21,12 @@ photosRouter.post(
   async (req, res) => {
     try {
       const photo = new Photo(req.body);
-      console.log(req.file)
       const file = req.file.buffer;
       photo.photo = file;
+      console.log(photo)
+      // await photo.save();
 
-      await photo.save();
-
-      res.status(201).send({ _id: photo._id });
+      res.status(201)
     } catch (error) {
       res.status(500).send({
         upload_error: 'Error while uploading file...Try again later.'
