@@ -5,18 +5,23 @@ const imagesRouter = express.Router();
 
 const upload = multer({
   limits: {
-    fileSize: 4 * 1024 * 1024 // max file size 1MB = 1000000 bytes
+    fileSize: 1000000 // max file size 1MB = 1000000 bytes
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpeg|jpg)$/)) {
+      cb(new Error('only upload files with jpg or jpeg format.'))
+    }
+    cb(undefined, true); // continue with upload
   }
-});
+})
 
-imagesRouter.post('/', upload.array('images', 10), async (req, res) => {
-  console.log('post')
-  const imagesArray = new Array(req.body.images)
-  console.log(req.body.images)
-  // imagesArray.forEach(image => {
-  //   const test = new Image(image)
-  //   test.save()
-  // })
+imagesRouter.post('/', upload.array('image', 10), async (req, res) => {
+  req.files.forEach(file => {
+    console.log(file.buffer)
+    const image = new Image(file)
+    image.image = file.buffer
+    image.save()  
+  })
 })
 
 imagesRouter.get('/', async (req, res) => {
