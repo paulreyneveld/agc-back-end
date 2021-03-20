@@ -20,10 +20,11 @@ photosRouter.post(
   upload.single('photo'),
   async (req, res) => {
     try {
+      console.log(req.body)
       const photo = new Photo(req.body);
       const file = req.file.buffer;
       photo.photo = file;
-      console.log(photo)
+      // console.log(photo)
       // await photo.save();
 
       res.status(201)
