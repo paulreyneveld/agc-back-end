@@ -21,6 +21,7 @@ photosRouter.post(
   async (req, res) => {
     try {
       console.log(req.body)
+      console.log(req.file)
       const photo = new Photo(req.body);
       const file = req.file.buffer;
       photo.photo = file;
