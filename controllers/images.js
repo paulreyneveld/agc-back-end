@@ -16,26 +16,19 @@ const upload = multer({
 })
 
 imagesRouter.post('/', upload.array('images', 10), async (req, res) => {
-  console.log(req.body)
-  // console.log(typeof req.body.isArray())
-  // console.log(req.body)
-  // console.log(req.files)
-  // console.log(req.files[1])
-  // for (let i = 0; i < req.files.length; i++) {
-  //   const image = new Image(req.body)
-  //   const file = req.files[i]
-  //   image.image = file.buffer
-  //   await image.save()
-  // }
-  const image = new Image(req.body)
-  console.log('Image', image)
-  const file = req.files[0].buffer
-  console.log('File', file)
-  image.image = file
-  console.log('Image with file', image)
-  await image.save()
-
-  res.status(201)
+  try {
+    for (let i = 0; i < req.files.length; i++) {
+      const image = new Image(req.body)
+      const file = req.files[i]
+      image.image = file.buffer
+      await image.save()
+    }
+    res.status(201)
+  }
+  catch (error) {
+    console.log(error)
+    res.status(500).send({ message: "Error uploading images" })
+  }
 })
 
 imagesRouter.get('/', async (req, res) => {
