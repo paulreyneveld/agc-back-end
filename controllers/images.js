@@ -16,6 +16,7 @@ const upload = multer({
 })
 
 imagesRouter.post('/', upload.array('images', 10), async (req, res) => {
+  console.log(req.body)
   // console.log(typeof req.body.isArray())
   // console.log(req.body)
   // console.log(req.files)
@@ -27,10 +28,13 @@ imagesRouter.post('/', upload.array('images', 10), async (req, res) => {
   //   await image.save()
   // }
   const image = new Image(req.body)
-  const file = req.files[0]
-  image.image = file.buffer
+  console.log('Image', image)
+  const file = req.files[0].buffer
+  console.log('File', file)
+  image.image = file
+  console.log('Image with file', image)
   await image.save()
-  
+
   res.status(201)
 })
 
