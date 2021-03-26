@@ -17,17 +17,21 @@ const upload = multer({
 
 imagesRouter.post('/', upload.array('images', 10), async (req, res) => {
   // console.log(typeof req.body.isArray())
-  console.log(req.body)
+  // console.log(req.body)
   // console.log(req.files)
-  // req.files.forEach(async file => {
-  //   // console.log(file)
+  // console.log(req.files[1])
+  // for (let i = 0; i < req.files.length; i++) {
   //   const image = new Image(req.body)
-  //   // const data = file.buffer
+  //   const file = req.files[i]
   //   image.image = file.buffer
-
-  //   // console.log(image)
-  //   // await image.save()  
-  // })
+  //   await image.save()
+  // }
+  const image = new Image(req.body)
+  const file = req.files[0]
+  image.image = file.buffer
+  await image.save()
+  
+  res.status(201)
 })
 
 imagesRouter.get('/', async (req, res) => {
