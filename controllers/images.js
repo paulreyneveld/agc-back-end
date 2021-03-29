@@ -33,6 +33,7 @@ imagesRouter.post('/', upload.array('images', 10), async (req, res) => {
 
 imagesRouter.get('/', async (req, res) => {
   try {
+    console.log('hello')
     const images = await Image.find({});
     res.send(images);
   } catch (error) {
@@ -42,7 +43,9 @@ imagesRouter.get('/', async (req, res) => {
 
 imagesRouter.get('/:id', async (req, res) => {
   try {
+    console.log('word')
     const result = await Image.findById(req.params.id);
+    console.log(result)
     res.set('Content-Type', 'image/jpeg');
     res.send(result.image);
   } catch (error) {
