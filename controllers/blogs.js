@@ -1,8 +1,10 @@
 const express = require('express')
 const blogRouter = express.Router()
 const Blog = require('../models/Blog')
+const jwt = require('jsonwebtoken')
 
 const authenticateMiddleware = (req, res, next) => {
+    const SECRET_KEY = process.env.SECRET
     const { authorization } = req.headers
     const token = authorization && authorization.split(" ")[1]
     if (token == null) return res.sendStatus(401)
@@ -28,7 +30,7 @@ blogRouter.post('/', async (req, res) => {
     }
 })
 
-blogRouter.get('/', async (req, res) => {
+blogRouter.get('/', authenticateMiddleware, async (req, res) => {
     try {
         const blogs = await Blog.find({})
         res.json(blogs).status(200).end()
