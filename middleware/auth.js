@@ -9,3 +9,5 @@ const authenticateMiddleware = (req, res, next) => {
       next()
      })
 }
+
+module.exports = authenticateMiddleware
