@@ -23,7 +23,7 @@ app.use(cors())
 
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
-app.use('/api/photos', photosRouter)
+// app.use('/api/photos', photosRouter)
 app.use('/api/blog', blogRouter)
 app.use('/api/images', imagesRouter)
 
