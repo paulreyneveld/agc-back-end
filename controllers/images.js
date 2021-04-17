@@ -56,6 +56,14 @@ imagesRouter.get('/:id', async (req, res) => {
 // Create a backend imagesRouter delete
 imagesRouter.delete('/:id', async (req, res) => {
   console.log('hello world')
+  console.log(req.params.id)
+  try {
+    await Image.findByIdAndDelete(req.params.id)
+    res.status(204).end()
+  }
+  catch (error) {
+    res.status(500).send({ upload_error: 'Request error' })
+  }
 })
 
 module.exports = imagesRouter;
