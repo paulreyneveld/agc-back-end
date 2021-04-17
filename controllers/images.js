@@ -53,4 +53,6 @@ imagesRouter.get('/:id', async (req, res) => {
   }
 });
 
+// Create a backend imagesRouter delete
+
 module.exports = imagesRouter;
