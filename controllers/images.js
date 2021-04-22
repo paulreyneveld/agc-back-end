@@ -2,6 +2,7 @@ const express = require('express');
 const multer = require('multer');
 const Image = require('../models/Image');
 const imagesRouter = express.Router();
+const authenticateMiddleware = require('../middleware/auth')
 
 const upload = multer({
   limits: {
@@ -54,7 +55,7 @@ imagesRouter.get('/:id', async (req, res) => {
 });
 
 // Create a backend imagesRouter delete
-imagesRouter.delete('/:id', async (req, res) => {
+imagesRouter.delete('/:id', authenticateMiddleware, async (req, res) => {
   try {
     await Image.findByIdAndDelete(req.params.id)
     res.status(204).end()
